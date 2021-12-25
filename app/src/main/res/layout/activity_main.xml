@@ -4,15 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/black">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+    <ImageView
+        android:id="@+id/burnHere"
+        android:layout_width="412dp"
+        android:layout_height="449dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/flame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <Switch
+        android:id="@+id/switch2"
+        android:layout_width="128dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginBottom="148dp"
+        android:background="@color/black"
+        android:checked="false"
+        android:fontFamily="@font/insomniafont"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:showText="true"
+        android:text="@string/turnOffOn"
+        android:textColor="@color/darkOrange"
+        android:textOff="@string/off"
+        android:textOn="@string/on"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <ImageButton
+        android:id="@+id/push"
+        android:layout_width="81dp"
+        android:layout_height="72dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="36dp"
+        android:adjustViewBounds="true"
+        android:padding="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/push" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
