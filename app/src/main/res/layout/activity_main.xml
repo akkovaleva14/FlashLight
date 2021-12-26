@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/black">
+    android:background="@color/black"
+    tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/burnHere"
@@ -13,6 +13,7 @@
         android:layout_height="449dp"
         android:layout_marginTop="4dp"
         android:background="@drawable/flame"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,6 +50,7 @@
         android:adjustViewBounds="true"
         android:padding="0dp"
         android:scaleType="centerCrop"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/push" />
