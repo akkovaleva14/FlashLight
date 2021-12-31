@@ -12,39 +12,31 @@ public class FlashClass {
     boolean flashStatus = false;
     boolean strobeStatus = false;
 
-
     FlashClass(Context context) {
         this.context = context;
     }
 
-    // startLight, endLight, startStrobe, endStrobe, isStrobeOn
-
-    // функция отвечает за включение фонарика
     public void startLight() {
         cameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
         if (cameraManager != null) {
-            String cameraId = null;
+            String cameraId;
             try {
                 cameraId = cameraManager.getCameraIdList()[0];
-                // выключаем фонарик:
                 cameraManager.setTorchMode(cameraId, false);
-                // включаем фонарик: чтобы переключиться между стробоскопом и обычным фонариком
                 cameraManager.setTorchMode(cameraId, true);
                 flashStatus = true;
             } catch (CameraAccessException e) {
                 e.printStackTrace();
             }
         }
-
     }
 
     public void endLight() {
         cameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
         if (cameraManager != null) {
-            String cameraId = null;
+            String cameraId;
             try {
                 cameraId = cameraManager.getCameraIdList()[0];
-                // выключаем фонарик:
                 cameraManager.setTorchMode(cameraId, false);
                 flashStatus = false;
             } catch (CameraAccessException e) {
@@ -60,33 +52,33 @@ public class FlashClass {
                 strobeStatus = true;
                 cameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
                 if (cameraManager != null) {
-                    String cameraId = null;
+                    String cameraId;
                     try {
                         cameraId = cameraManager.getCameraIdList()[0];
-                        do {
+                        while (strobeStatus) {
                             cameraManager.setTorchMode(cameraId, true);
                             int freq = 5;
                             Thread.sleep(100 - freq);
                             cameraManager.setTorchMode(cameraId, false);
                             Thread.sleep(freq);
-                        } while (strobeStatus);
+                            cameraManager.setTorchMode(cameraId, true);
+                        }
                     } catch (CameraAccessException | InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
             }
-
         }).start();
     }
 
-    // flashStatus = true;
     public void endStrobe() {
         strobeStatus = false;
         cameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
         if (cameraManager != null) {
-            String cameraId = null;
+            String cameraId;
             try {
                 cameraId = cameraManager.getCameraIdList()[0];
+                cameraManager.setTorchMode(cameraId, false);
                 cameraManager.setTorchMode(cameraId, true);
             } catch (CameraAccessException e) {
                 e.printStackTrace();
@@ -97,6 +89,5 @@ public class FlashClass {
     public boolean isStrobeOn() {
         return strobeStatus;
     }
-
 
 }

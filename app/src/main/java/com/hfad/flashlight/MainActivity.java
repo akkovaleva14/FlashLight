@@ -1,9 +1,9 @@
 package com.hfad.flashlight;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -18,29 +18,24 @@ public class MainActivity extends AppCompatActivity {
     Switch switch2;
     ImageButton push;
     FlashClass flashClass;
+    MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Load the ImageView that will host the animation and
-        // set its background to our AnimationDrawable XML resource.
         burnHere = (ImageView) findViewById(R.id.burnHere);
         burnHere.setBackgroundResource(R.drawable.flame);
 
-        // Get the background, which has been compiled to an AnimationDrawable object.
         AnimationDrawable frameAnimation = (AnimationDrawable) burnHere.getBackground();
 
-        // Start the animation (looped playback by default).
         frameAnimation.start();
 
         switch2 = (Switch) findViewById(R.id.switch2);
         push = (ImageButton) findViewById(R.id.push);
 
-        // startLight, endLight, startStrobe, endStrobe, isStrobeOn
         init();
-
     }
 
     public void init() {
@@ -52,14 +47,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                         if (isCameraFlash) {
-                            if(switch2.isChecked()){
+                            if (switch2.isChecked()) {
                                 burnHere.setVisibility(View.VISIBLE);
                                 push.setVisibility(View.VISIBLE);
                                 flashClass.startLight();
+                                mp = MediaPlayer.create(MainActivity.this, R.raw.open);
+                                mp.start();
                             } else {
                                 burnHere.setVisibility(View.GONE);
                                 push.setVisibility(View.GONE);
                                 flashClass.endLight();
+                                mp = MediaPlayer.create(MainActivity.this, R.raw.close);
+                                mp.start();
                             }
                         } else {
                             Toast.makeText(MainActivity.this,
@@ -69,16 +68,19 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+
         push.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (flashClass.isStrobeOn()){
-                    flashClass.startStrobe();
-                } else {
+                mp = MediaPlayer.create(MainActivity.this, R.raw.strobe);
+                mp.start();
+                if (flashClass.isStrobeOn()) {
                     flashClass.endStrobe();
+                } else {
+                    flashClass.startStrobe();
                 }
             }
         });
     }
-
 }
+
